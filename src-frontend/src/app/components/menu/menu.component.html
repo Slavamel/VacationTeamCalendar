@@ -3,7 +3,7 @@
   
   <div *ngIf="isMenuVisible" class="menu" [@appearing]="void">
     <button (click)="onClose()" class="close-btn">❌</button>
-    <button class="country-holidays link">Country holidays 🎉</button>
-    <button class="user-vacation link">Change my vacation 🌅</button>
+    <button routerLink="/country-holidays" class="country-holidays link">Country holidays 🎉</button>
+    <button routerLink="/vacation" class="user-vacation link">Change my vacation 🌅</button>
   </div>
 </div>
