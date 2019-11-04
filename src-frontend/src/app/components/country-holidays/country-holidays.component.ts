@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { StyleService } from 'src/app/services/style/style.service';
 
 @Component({
   selector: 'app-country-holidays',
@@ -8,11 +7,7 @@ import { StyleService } from 'src/app/services/style/style.service';
 })
 export class CountryHolidaysComponent implements OnInit {
 
-  constructor(private styleService: StyleService) { }
+  constructor() { }
 
   ngOnInit() { }
-
-  onDateClicked(dateId: string): void {
-    this.styleService.toggleHighlightHolidayClass(dateId);
-  }
 }

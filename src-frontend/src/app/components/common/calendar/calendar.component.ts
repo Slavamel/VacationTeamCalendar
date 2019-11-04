@@ -11,8 +11,7 @@ import { CalendarService } from 'src/app/services/calendar/calendar.service';
 })
 export class CalendarComponent implements OnInit {
   @Output() calendarLoaded = new EventEmitter<number>();
-  @Output() dateClicked = new EventEmitter<string>();
-  @Input() isClickableCountryHolidays = false;
+  @Input() isHolidaysHighlighted: boolean;
   monthes: Month[];
   year = new Date().getFullYear();
   isLoading = false;
@@ -32,10 +31,6 @@ export class CalendarComponent implements OnInit {
   getDateId(monthNum: number, date: number): string {
     if (!date) return "";
     return "date-" + (monthNum + 1) + "-" + date;
-  }
-
-  onDateClicked(dateId: string): void {
-    this.dateClicked.emit(dateId);
   }
 
   private init(year: number): void {
