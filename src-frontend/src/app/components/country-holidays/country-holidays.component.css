@@ -41,3 +41,19 @@
 .cancel-btn:active {
   background-color: rgb(52,73,94, 0.9);
 }
+
+.holiday-input input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.holiday-input {
+  display: block;
+  text-align: center;
+  height: 30px;
+  width: 100%;
+  border: 1px solid black;
+}
