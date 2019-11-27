@@ -42,6 +42,32 @@
   background-color: rgb(52,73,94, 0.9);
 }
 
+.holidays {
+  text-align: center;
+}
+
+.holidays-caption {
+  color: #e74c3c;
+  font-weight: 500;
+  font-size: 30px;
+}
+
+.holidays-header {
+  text-transform: uppercase;
+  color: #7f8fa6;  
+  font-size: 12px;  
+  font-weight: 300;
+}
+
+.holiday-btn {
+  font-size: 14px;
+  padding: 6px;
+}
+
+.holiday-date {
+  padding: 10px 20px;
+}
+
 .holiday-input input {
   position: absolute;
   opacity: 0;
@@ -53,7 +79,12 @@
 .holiday-input {
   display: block;
   text-align: center;
-  height: 30px;
-  width: 100%;
-  border: 1px solid black;
+  border: 1px solid #dcdde1;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 8px 0;
+}
+
+.holidays-table {
+  min-width: 309px;
 }

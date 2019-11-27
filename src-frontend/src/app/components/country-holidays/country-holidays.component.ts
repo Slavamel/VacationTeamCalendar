@@ -10,6 +10,7 @@ import { Holiday } from 'src/app/models/holiday.model';
 export class CountryHolidaysComponent implements OnInit {
   year = 2019;
   holidays: Holiday[];
+
   startDate: Date;
   endDate: Date;
 
@@ -17,7 +18,7 @@ export class CountryHolidaysComponent implements OnInit {
 
   constructor(private holidayService: HolidayServiceMock) { }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.initCountryHolidays();
   }
 
@@ -30,6 +31,8 @@ export class CountryHolidaysComponent implements OnInit {
   }
 
   onAddHolidayClicked(): void {
+    if (!this.startDate || !this.endDate) return;
+    if (this.startDate > this.endDate) return;
     this.holidays.push(new Holiday(this.startDate, this.endDate));
     this.startDate = null;
     this.endDate = null;
