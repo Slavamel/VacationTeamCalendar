@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 import { Month } from 'src/app/models/month.model';
-import { HolidayServiceBase } from 'src/app/services/holiday/holiday.service.base';
 import { CalendarService } from 'src/app/services/calendar/calendar.service';
+import { Holiday } from 'src/app/models/holiday.model';
 
 @Component({
   selector: 'app-calendar',
@@ -12,13 +12,12 @@ import { CalendarService } from 'src/app/services/calendar/calendar.service';
 export class CalendarComponent implements OnInit {
   @Output() calendarLoaded = new EventEmitter<number>();
   @Input() isHolidaysHighlighted: boolean;
-  monthes: Month[];
-  year = new Date().getFullYear();
-  isLoading = false;
+  @Input() year: number;
+  @Input() holidays: Holiday[];
 
-  constructor(
-    private holidayService: HolidayServiceBase, 
-    private calendarService: CalendarService) { }
+  monthes: Month[];
+
+  constructor(private calendarService: CalendarService) { }
 
   ngOnInit() {
     this.init(this.year);
@@ -34,14 +33,7 @@ export class CalendarComponent implements OnInit {
   }
 
   private init(year: number): void {
-    this.isLoading = true;
-    this.monthes = null;
-
-    this.holidayService.getCountryHolidays(year)
-      .then((holidays) => {
-        this.monthes = this.calendarService.getCalendar(year, holidays);
-        this.calendarLoaded.emit(year);
-      })
-      .finally(() => this.isLoading = false);
+    this.monthes = this.calendarService.getCalendar(year, this.holidays);
+    this.calendarLoaded.emit(year);
   }
 }
