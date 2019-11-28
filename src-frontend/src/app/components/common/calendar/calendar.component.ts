@@ -3,6 +3,7 @@ import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@
 import { Month } from 'src/app/models/month.model';
 import { CalendarService } from 'src/app/services/calendar/calendar.service';
 import { Holiday } from 'src/app/models/holiday.model';
+import { StyleService } from 'src/app/services/style/style.service';
 
 @Component({
   selector: 'app-calendar',
@@ -17,16 +18,16 @@ export class CalendarComponent implements OnInit {
 
   monthes: Month[];
 
-  constructor(private calendarService: CalendarService) { }
+  constructor(
+    private calendarService: CalendarService, 
+    private styleService: StyleService) { }
 
   ngOnInit() {
     this.init(this.year);
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes["holidays"]) {
-      this.init(this.year);
-    }
+  ngAfterViewInit() {
+    this.styleService.setHolidaysStyles(this.holidays, this.isHolidaysHighlighted);
   }
 
   onCurrentYearChanged(year: number): void {
@@ -39,7 +40,7 @@ export class CalendarComponent implements OnInit {
   }
 
   private init(year: number): void {
-    this.monthes = this.calendarService.getCalendar(year, this.holidays);
+    this.monthes = this.calendarService.getCalendar(year);
     this.calendarLoaded.emit(year);
   }
 }

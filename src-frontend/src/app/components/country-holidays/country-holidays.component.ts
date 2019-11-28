@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HolidayServiceMock } from 'src/app/services/holiday/holiday.service.mock';
 import { Holiday } from 'src/app/models/holiday.model';
+import { StyleService } from 'src/app/services/style/style.service';
 
 @Component({
   selector: 'app-country-holidays',
@@ -16,7 +17,7 @@ export class CountryHolidaysComponent implements OnInit {
 
   isLoading: boolean;
 
-  constructor(private holidayService: HolidayServiceMock) { }
+  constructor(private holidayService: HolidayServiceMock, private styleService: StyleService) { }
 
   ngOnInit() {
     this.initCountryHolidays();
@@ -36,12 +37,15 @@ export class CountryHolidaysComponent implements OnInit {
   onAddHolidayClicked(): void {
     if (!this.startDate || !this.endDate) return;
     if (this.startDate > this.endDate) return;
-    this.holidays.push(new Holiday(this.startDate, this.endDate));
+    const holiday = new Holiday(this.startDate, this.endDate);
+    this.holidays.push(holiday);
+    this.styleService.changeHolidayHighlightedClass(holiday, true);
     this.startDate = null;
     this.endDate = null;
   }
 
   onRemoveHolidayClicked(index): void {
+    this.styleService.changeHolidayHighlightedClass(this.holidays[index], false);
     this.holidays = this.holidays.filter((h, i) => i != index);
   }
 

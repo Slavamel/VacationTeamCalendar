@@ -49,7 +49,7 @@
   color: #e74c3c;
 }
 
-.highlight-holiday {
+.holiday--highlighted {
   background-color: #e74c3c;
   color: #fff;
   transition: 0.3s;
