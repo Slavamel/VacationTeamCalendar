@@ -2,8 +2,8 @@
   <div (click)="onOpen()" class="toggle-btn">🔧</div>
   
   <div *ngIf="isMenuVisible" class="menu" [@appearing]="void">
-    <button (click)="onClose()" class="close-btn">❌</button>
-    <button routerLink="/country-holidays" class="country-holidays link">Country holidays 🎉</button>
-    <button routerLink="/vacation" class="user-vacation link">Change my vacation 🌅</button>
+    <button (click)="onClose()" class="close-btn" type="button">❌</button>
+    <button (click)="onClose()" routerLink="/country-holidays" class="country-holidays link" type="button">Country holidays 🎉</button>
+    <button (click)="onClose()" routerLink="/vacation" class="user-vacation link" type="button">Change my vacation 🌅</button>
   </div>
 </div>

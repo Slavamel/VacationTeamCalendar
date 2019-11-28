@@ -44,7 +44,6 @@ export class CountryHolidaysComponent implements OnInit {
 
     this.startDate = null;
     this.endDate = null;
-    this.error = null;
   }
 
   onRemoveHolidayClicked(index): void {
@@ -66,6 +65,7 @@ export class CountryHolidaysComponent implements OnInit {
       return false;
     }
 
+    this.error = null;
     return true;
   }
 
