@@ -18,14 +18,14 @@
         <tr>
           <td>
             <label class="holiday-input">
-              <input type="date" (change)="onStartDateChanged($event.target.value)">
+              <input type="date" [(ngModel)]="startDate">
               <span *ngIf="startDate">{{ startDate | date }}</span>
               <span *ngIf="!startDate">Start date</span>
             </label>
           </td>
           <td>
             <label class="holiday-input">
-              <input type="date" (change)="onEndDateChanged($event.target.value)">
+              <input type="date" [(ngModel)]="endDate">
               <span *ngIf="endDate">{{ endDate | date }}</span>
               <span *ngIf="!endDate">End date</span>
             </label>

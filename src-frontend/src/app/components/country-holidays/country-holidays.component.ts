@@ -12,8 +12,8 @@ export class CountryHolidaysComponent implements OnInit {
   year = new Date().getFullYear();
   holidays: Holiday[];
 
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
 
   error: string;
 
@@ -32,18 +32,13 @@ export class CountryHolidaysComponent implements OnInit {
   onSaveClicked(): void {
   }
 
-  onStartDateChanged(date: string): void {
-    this.startDate = new Date(date);
-  }
-
-  onEndDateChanged(date: string): void {
-    this.endDate = new Date(date);
-  }
-
   onAddHolidayClicked(): void {
-    if (!this.isDatesValid()) return;
+    const startDate = new Date(this.startDate);
+    const endDate = new Date(this.endDate);
     
-    const holiday = new Holiday(this.startDate, this.endDate);
+    if (!this.isDatesValid(startDate, endDate)) return;
+    
+    const holiday = new Holiday(startDate, endDate);
     this.holidays.push(holiday);
     this.styleService.changeHolidayHighlightedClass(holiday, true);
 
@@ -56,23 +51,23 @@ export class CountryHolidaysComponent implements OnInit {
     this.holidays = this.holidays.filter((h, i) => i != index);
   }
 
-  private isDatesValid(): boolean {
-    if (!this.startDate || !this.endDate) {
+  private isDatesValid(startDate: Date, endDate: Date): boolean {
+    if (!startDate || !endDate) {
       this.error = "Add dates first";
       return false;
     }
 
-    if (this.startDate > this.endDate) {
+    if (startDate > endDate) {
       this.error = "Swap the dates";
       return false;
     }
 
-    if (this.startDate.getFullYear() != this.year || this.endDate.getFullYear() != this.year) {
+    if (startDate.getFullYear() != this.year || endDate.getFullYear() != this.year) {
       this.error = `Change calendar's year first`;
       return false;
     }
 
-    if (this.isDateAlreadyExist()) {
+    if (this.isDateAlreadyExist(startDate, endDate)) {
       this.error = `The dates already exist in another holiday`;
       return false;
     }
@@ -86,13 +81,13 @@ export class CountryHolidaysComponent implements OnInit {
       .then(holidays => this.holidays = holidays);
   }
 
-  private isDateAlreadyExist(): boolean {
+  private isDateAlreadyExist(startDate: Date, endDate: Date): boolean {
     let holidaysTimes = [];
     this.holidays.forEach(holiday => {
       holidaysTimes.push(...this.getAllDateTimes(holiday));
     });
 
-    let newHolidayTimes = this.getAllDateTimes(new Holiday(this.startDate, this.endDate));
+    let newHolidayTimes = this.getAllDateTimes(new Holiday(startDate, endDate));
     
     const result = holidaysTimes.some(h => newHolidayTimes.includes(h));
     return result;
