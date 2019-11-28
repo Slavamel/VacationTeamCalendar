@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
 
 import { Month } from 'src/app/models/month.model';
 import { CalendarService } from 'src/app/services/calendar/calendar.service';
@@ -21,6 +21,12 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit() {
     this.init(this.year);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes["holidays"]) {
+      this.init(this.year);
+    }
   }
 
   onCurrentYearChanged(year: number): void {

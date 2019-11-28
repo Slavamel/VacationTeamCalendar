@@ -1,3 +1,8 @@
+.main {
+  text-align: center;
+  min-width: 1400px;
+}
+
 .calendar {
   margin-bottom: 50px;
 }
@@ -43,6 +48,7 @@
 }
 
 .holidays {
+  margin-right: 20px;
   text-align: center;
 }
 
@@ -66,6 +72,7 @@
 
 .holiday-date {
   padding: 10px 20px;
+  color: #2c3e50;
 }
 
 .holiday-input input {
@@ -83,8 +90,14 @@
   cursor: pointer;
   border-radius: 3px;
   padding: 8px 0;
+  color: #2c3e50;
 }
 
 .holidays-table {
   min-width: 309px;
+}
+
+.holidays, .calendar {
+  display: inline-block;
+  vertical-align: top;
 }

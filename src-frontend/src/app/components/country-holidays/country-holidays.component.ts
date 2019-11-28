@@ -22,6 +22,9 @@ export class CountryHolidaysComponent implements OnInit {
     this.initCountryHolidays();
   }
 
+  onSaveClicked(): void {
+  }
+
   onStartDateChanged(date: string): void {
     this.startDate = new Date(date);
   }
@@ -39,7 +42,7 @@ export class CountryHolidaysComponent implements OnInit {
   }
 
   onRemoveHolidayClicked(index): void {
-    this.holidays.splice(index, 1);
+    this.holidays = this.holidays.filter((h, i) => i != index);
   }
 
   private initCountryHolidays(): void {

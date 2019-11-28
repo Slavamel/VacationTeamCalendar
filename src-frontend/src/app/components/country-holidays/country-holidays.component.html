@@ -1,49 +1,51 @@
-<div class="holidays">
-  <table *ngIf="holidays" class="holidays-table">
-    <caption class="holidays-caption">Holidays</caption>
-    <tr>
-      <th class="holidays-header">From</th>
-      <th class="holidays-header">To</th>
-      <th></th>
-    </tr>
-    <tr *ngFor="let holiday of holidays; let i = index">
-      <td class="holiday-date">{{ holiday.startDate | date }}</td>
-      <td class="holiday-date">{{ holiday.endDate | date }}</td>
-      <td>
-        <button (click)="onRemoveHolidayClicked(i)" type="button" class="btn holiday-btn">✂️</button>
-      </td>
-    </tr>
-    <tr>
-      <td class="holiday-newDate">
-        <label class="holiday-input">
-          <input type="date" (change)="onStartDateChanged($event.target.value)">
-          <span *ngIf="startDate">{{ startDate | date }}</span>
-          <span *ngIf="!startDate">Start date</span>
-        </label>
-      </td>
-      <td>
-        <label class="holiday-input">
-          <input type="date" (change)="onEndDateChanged($event.target.value)">
-          <span *ngIf="endDate">{{ endDate | date }}</span>
-          <span *ngIf="!endDate">End date</span>
-        </label>
-      </td>
-      <td>
-        <button (click)="onAddHolidayClicked()" type="button" class="btn holiday-btn">✔️</button>
-      </td>
-    </tr>
-  </table>
+<div class="main">
+  <div class="holidays card">
+    <table *ngIf="holidays" class="holidays-table">
+      <caption class="holidays-caption">Holidays</caption>
+      <tr>
+        <th class="holidays-header">From</th>
+        <th class="holidays-header">To</th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let holiday of holidays; let i = index">
+        <td class="holiday-date">{{ holiday.startDate | date }}</td>
+        <td class="holiday-date">{{ holiday.endDate | date }}</td>
+        <td>
+          <button (click)="onRemoveHolidayClicked(i)" type="button" class="btn holiday-btn">✂️</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label class="holiday-input">
+            <input type="date" (change)="onStartDateChanged($event.target.value)">
+            <span *ngIf="startDate">{{ startDate | date }}</span>
+            <span *ngIf="!startDate">Start date</span>
+          </label>
+        </td>
+        <td>
+          <label class="holiday-input">
+            <input type="date" (change)="onEndDateChanged($event.target.value)">
+            <span *ngIf="endDate">{{ endDate | date }}</span>
+            <span *ngIf="!endDate">End date</span>
+          </label>
+        </td>
+        <td>
+          <button (click)="onAddHolidayClicked()" type="button" class="btn holiday-btn">✔️</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  
+  <div class="calendar card" *ngIf="holidays">
+    <app-calendar [isHolidaysHighlighted]="true" [year]="2019" [holidays]="holidays"></app-calendar>
+  </div>
+  
+  <div class="buttons">
+    <button (click)="onSaveClicked()" type="button" class="btn save-btn">Save 💾</button>
+    <button type="button" class="btn cancel-btn">Never mind 😒</button>
+  </div>
 </div>
-
-<div class="calendar" *ngIf="holidays">
-  <app-calendar [isHolidaysHighlighted]="true" [year]="2019" [holidays]="holidays"></app-calendar>
-</div>
-
-<div class="buttons">
-  <button type="button" class="btn save-btn">Save 💾</button>
-  <button type="button" class="btn cancel-btn">Never mind 😒</button>
-</div>
-
+  
 <div *ngIf="isLoading" class="loading">
   <app-loading></app-loading>
 </div>
