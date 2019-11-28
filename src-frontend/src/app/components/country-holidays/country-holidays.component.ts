@@ -15,6 +15,7 @@ export class CountryHolidaysComponent implements OnInit {
   startDate: Date;
   endDate: Date;
 
+  error: string = null;
   isLoading: boolean;
 
   constructor(private holidayService: HolidayServiceMock, private styleService: StyleService) { }
@@ -35,18 +36,37 @@ export class CountryHolidaysComponent implements OnInit {
   }
 
   onAddHolidayClicked(): void {
-    if (!this.startDate || !this.endDate) return;
-    if (this.startDate > this.endDate) return;
+    if (!this.isDatesValid()) return;
+    
     const holiday = new Holiday(this.startDate, this.endDate);
     this.holidays.push(holiday);
     this.styleService.changeHolidayHighlightedClass(holiday, true);
+
     this.startDate = null;
     this.endDate = null;
+    this.error = null;
   }
 
   onRemoveHolidayClicked(index): void {
     this.styleService.changeHolidayHighlightedClass(this.holidays[index], false);
     this.holidays = this.holidays.filter((h, i) => i != index);
+  }
+
+  private isDatesValid(): boolean {
+    if (!this.startDate || !this.endDate) {
+      this.error = "Add dates first";
+      return false;
+    };
+    if (this.startDate > this.endDate) {
+      this.error = "Swap the dates";
+      return false;
+    };
+    if (this.startDate.getFullYear() != this.year || this.endDate.getFullYear() != this.year) {
+      this.error = `Change calendar's year first`;
+      return false;
+    }
+
+    return true;
   }
 
   private initCountryHolidays(): void {
