@@ -33,6 +33,11 @@
           <button (click)="onAddHolidayClicked()" type="button" class="btn holiday-btn">✔️</button>
         </td>
       </tr>
+      <tr>
+        <td colspan="2" class="error">
+          <span *ngIf="error">{{ error }}</span>
+        </td>
+      </tr>
     </table>
   </div>
   
@@ -42,7 +47,6 @@
   
   <div class="buttons">
     <button (click)="onSaveClicked()" type="button" class="btn save-btn">Save 💾</button>
-    <button type="button" class="btn cancel-btn">Never mind 😒</button>
   </div>
 </div>
   

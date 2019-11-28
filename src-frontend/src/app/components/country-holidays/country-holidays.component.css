@@ -31,20 +31,11 @@
 }
 
 .save-btn {
-  margin-right: 50px;
   background-color: #27ae60;
 }
 
 .save-btn:active {
   background-color: rgb(39,174,96, 0.9);
-}
-
-.cancel-btn {
-  background-color: #34495e;
-}
-
-.cancel-btn:active {
-  background-color: rgb(52,73,94, 0.9);
 }
 
 .holidays {
@@ -100,4 +91,9 @@
 .holidays, .calendar {
   display: inline-block;
   vertical-align: top;
+}
+
+.error {
+  font-size: 12px;
+  color: #e74c3c;
 }
