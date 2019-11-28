@@ -43,9 +43,9 @@
 
       <tbody *ngIf="!holidays">
         <tr *ngFor="let i of [].constructor(6)">
-          <td class="holiday-date holidays-mock-item"></td>
-          <td class="holiday-date holidays-mock-item"></td>
-          <td class="holidays-mock-item"></td>
+          <td class="holiday-date mock-item"></td>
+          <td class="holiday-date mock-item"></td>
+          <td class="mock-item"></td>
         </tr>
       </tbody>
     </table>
@@ -58,7 +58,7 @@
     <app-calendar *ngIf="holidays" [isHolidaysHighlighted]="true" [year]="year" [holidays]="holidays"></app-calendar>
 
     <div class="calendar-mock" *ngIf="!holidays">
-      <div class="calendar-mock-item" *ngFor="let i of [].constructor(12)"></div>
+      <div class="mock-item" *ngFor="let i of [].constructor(12)"></div>
     </div>
   </div>
 

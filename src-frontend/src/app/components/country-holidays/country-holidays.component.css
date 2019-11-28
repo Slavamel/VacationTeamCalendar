@@ -117,27 +117,11 @@
   grid-gap: 10px 20px;
 }
 
-.calendar-mock-item {
+.calendar-mock .mock-item {
   width: 210px;
   height: 240px;
-  background-color: #e6e6e6;
-  animation: loading 5s infinite;
 }
 
-.holidays-mock-item:first-of-type {
-  margin-top: 10px;
-}
-
-.holidays-mock-item {
+.holidays .mock-item {
   height: 39px;
-  background-color: #e6e6e6;
-  animation: loading 5s infinite;
-}
-
-@keyframes loading {
-  0% { background-color: #e6e6e6; }
-  25% { background-color: #f2f2f2; }
-  50% { background-color: #e6e6e6; }
-  75% { background-color: #f2f2f2; }
-  100% { background-color: #e6e6e6; }
 }
