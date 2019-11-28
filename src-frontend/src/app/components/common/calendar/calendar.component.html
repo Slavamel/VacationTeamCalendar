@@ -17,10 +17,7 @@
         <div 
           id="{{ getDateId(monthNum, day.date) }}" 
           class="date" 
-          [ngClass]="{ 
-            'holiday': i > 4 || day.isHoliday, 
-            'highlight-holiday': day.isHoliday && isHolidaysHighlighted
-          }">{{day.date}}</div>
+          [ngClass]="{ 'holiday': i > 4 }">{{day.date}}</div>
       </ng-container>
     </ng-container>
   </div>

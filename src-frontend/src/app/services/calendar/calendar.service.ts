@@ -2,13 +2,11 @@ import { Injectable } from '@angular/core';
 
 import { Day } from 'src/app/models/day.model';
 import { Month } from 'src/app/models/month.model';
-import { Holiday } from 'src/app/models/holiday.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CalendarService {
-  private holidays: Holiday[];
   private monthNames = [
     "January", 
     "February", 
@@ -24,9 +22,8 @@ export class CalendarService {
     "December"
   ];
 
-  getCalendar(year: number, holidays: Holiday[]): Month[] {
+  getCalendar(year: number): Month[] {
     let result: Month[] = [];
-    this.holidays = holidays;
     for(let i=1; i<13; i++) {
       result.push(this.getMonth(i, year));
     }
@@ -47,9 +44,9 @@ export class CalendarService {
       if (day > daysInMonth && week.length == 0) { break; }
 
       if (i < firstDay || day > daysInMonth) {
-        week.push(new Day("", false));
+        week.push(new Day(""));
       } else {
-        week.push(new Day(day.toString(), this.isHoliday(monthNumber, day, year)));
+        week.push(new Day(day.toString()));
         day++;
       }
 
@@ -62,11 +59,5 @@ export class CalendarService {
     const result = new Month(this.monthNames[monthNumber-1], month);
 
     return result;
-  }
-
-  private isHoliday(monthNumber: number, day: number, year: number): boolean {
-    const checkingDate = new Date(`${year}-${monthNumber}-${day}`);
-    const isHoliday = this.holidays.some(h => h.startDate.getTime() <= checkingDate.getTime() && h.endDate.getTime() >= checkingDate.getTime());
-    return isHoliday;
   }
 }
