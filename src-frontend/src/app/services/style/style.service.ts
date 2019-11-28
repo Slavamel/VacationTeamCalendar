@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/models/user.model';
+import { Holiday } from 'src/app/models/holiday.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StyleService {
+  private holidayClass = "holiday";
+  private holidayHighlightedClass = "holiday--highlighted";
+
   setUsersStyles(users: User[]): void {
     this.addGlobalCalsses(users);
     for(let i = 0; i < users.length; i++) {
@@ -20,37 +24,50 @@ export class StyleService {
     this.chageUserStyles(user, true);
   }
 
-  private chageUserStyles(user: User, isAdding: boolean): void {
-    for(let i = 0; i < user.holidays.length; i++) {
-      const currentDate = new Date(user.holidays[i].startDate);
-      const endDate = user.holidays[i].endDate;
+  setHolidaysStyles(holidays: Holiday[], isHolidaysHighlighted: boolean = false): void {
+    for(let i = 0; i < holidays.length; i++) {
+      const currentDate = new Date(holidays[i].startDate);
+      const endDate = new Date(holidays[i].endDate);
 
       while (true) {
-        var elem = document.getElementById(this.convertDateToDateId(currentDate));
-        if (isAdding) {
-          elem.classList.add(`user-${user.id}`);
+        let elem = document.getElementById(this.convertDateToDateId(currentDate));
+        if (isHolidaysHighlighted) {
+          elem.classList.add(this.holidayHighlightedClass);
         } else {
-          elem.classList.remove(`user-${user.id}`);
+          elem.classList.add(this.holidayClass);
         }
 
         if (currentDate.getTime() == endDate.getTime()) break;
         currentDate.setDate(currentDate.getDate() + 1);
       }
-
-      // for(let k = 0; k < daysArr.length; k++) {
-      //   var elem = document.getElementById(`date-${user.holidays[k].month}-${daysArr[k]}`);
-
-      //   if (isAdding) {
-      //     elem.classList.add(`user-${user.id}`);
-      //     if (k == 0) elem.classList.add('first-vacation-day');
-      //     if (k == (daysArr.length - 1)) elem.classList.add('last-vacation-day');
-      //   } else {
-      //     elem.classList.remove(`user-${user.id}`);
-      //     if (k == 0) elem.classList.remove('first-vacation-day');
-      //     if (k == (daysArr.length - 1)) elem.classList.remove('last-vacation-day');
-      //   }
-      // }
     }
+  }
+
+  changeHolidayHighlightedClass(holiday: Holiday, isAdding: boolean): void {
+    this.addOrRemoveClass(holiday, isAdding, this.holidayHighlightedClass);
+  }
+
+  private addOrRemoveClass(holiday: Holiday, isAdding: boolean, className: string): void {
+    const currentDate = new Date(holiday.startDate);
+    const endDate = new Date(holiday.endDate);
+
+    while (true) {
+      let elem = document.getElementById(this.convertDateToDateId(currentDate));
+      if (isAdding) {
+        elem.classList.add(className);
+      } else {
+        elem.classList.remove(className);
+      }
+
+      if (currentDate.getTime() == endDate.getTime()) break;
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+  }
+
+  private chageUserStyles(user: User, isAdding: boolean): void {
+    user.holidays.forEach(holiday => {
+      this.addOrRemoveClass(holiday, isAdding, `user-${user.id}`);
+    });
   }
 
   private convertDateToDateId(date: Date): string {
