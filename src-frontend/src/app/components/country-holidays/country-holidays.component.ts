@@ -9,18 +9,23 @@ import { StyleService } from 'src/app/services/style/style.service';
   styleUrls: ['./country-holidays.component.css']
 })
 export class CountryHolidaysComponent implements OnInit {
-  year = 2019;
+  year = new Date().getFullYear();
   holidays: Holiday[];
 
   startDate: Date;
   endDate: Date;
 
-  error: string = null;
-  isLoading: boolean;
+  error: string;
 
   constructor(private holidayService: HolidayServiceMock, private styleService: StyleService) { }
 
   ngOnInit() {
+    this.initCountryHolidays();
+  }
+
+  onCurrentYearChanged(year: number): void {
+    this.holidays = null;
+    this.year = year;
     this.initCountryHolidays();
   }
 
@@ -71,7 +76,6 @@ export class CountryHolidaysComponent implements OnInit {
 
   private initCountryHolidays(): void {
     this.holidayService.getCountryHolidays(this.year)
-      .then(holidays => this.holidays = holidays)
-      .finally(() => this.isLoading = false);
+      .then(holidays => this.holidays = holidays);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
@@ -32,6 +32,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 export class YearComponent implements OnInit {
   @Output() currentYearChange = new EventEmitter<number>();
+  @Input() currentYear: number;
 
   state = 'normal';
   years: number[];
@@ -60,7 +61,6 @@ export class YearComponent implements OnInit {
   }
 
   private initYears(): void {
-    const currentYear = new Date().getFullYear();
-    this.years = [currentYear - 1, currentYear, currentYear + 1];
+    this.years = [this.currentYear - 1, this.currentYear, this.currentYear + 1];
   }
 }

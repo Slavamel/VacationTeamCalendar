@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
+import { Component, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
 
 import { Month } from 'src/app/models/month.model';
 import { CalendarService } from 'src/app/services/calendar/calendar.service';
@@ -10,7 +10,7 @@ import { StyleService } from 'src/app/services/style/style.service';
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent {
   @Output() calendarLoaded = new EventEmitter<number>();
   @Input() isHolidaysHighlighted: boolean;
   @Input() year: number;
@@ -22,25 +22,22 @@ export class CalendarComponent implements OnInit {
     private calendarService: CalendarService, 
     private styleService: StyleService) { }
 
-  ngOnInit() {
-    this.init(this.year);
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes["year"]) {
+      this.monthes = this.calendarService.getCalendar(this.year);
+    }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.styleService.setHolidaysStyles(this.holidays, this.isHolidaysHighlighted);
   }
 
-  onCurrentYearChanged(year: number): void {
-    this.init(year);
+  ngAfterViewChecked(): void {
+    this.calendarLoaded.emit(this.year);
   }
 
   getDateId(monthNum: number, date: number): string {
     if (!date) return "";
     return "date-" + (monthNum + 1) + "-" + date;
-  }
-
-  private init(year: number): void {
-    this.monthes = this.calendarService.getCalendar(year);
-    this.calendarLoaded.emit(year);
   }
 }
