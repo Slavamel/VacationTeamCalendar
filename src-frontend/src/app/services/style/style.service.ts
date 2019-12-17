@@ -47,6 +47,11 @@ export class StyleService {
     this.addOrRemoveClass(holiday, isAdding, this.holidayHighlightedClass);
   }
 
+  dropAllHolidayHighlightedClasses(): void {
+    const elems = document.querySelectorAll(`.${this.holidayHighlightedClass}`);
+    elems.forEach(elem => elem.classList.remove(this.holidayHighlightedClass));
+  }
+
   private addOrRemoveClass(holiday: Holiday, isAdding: boolean, className: string): void {
     const currentDate = new Date(holiday.startDate);
     const endDate = new Date(holiday.endDate);

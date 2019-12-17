@@ -11,6 +11,7 @@ import { StyleService } from 'src/app/services/style/style.service';
 export class CountryHolidaysComponent implements OnInit {
   year = new Date().getFullYear();
   holidays: Holiday[];
+  private savedHolidays: Holiday[];
 
   startDate: string;
   endDate: string;
@@ -30,6 +31,12 @@ export class CountryHolidaysComponent implements OnInit {
   }
 
   onSaveClicked(): void {
+  }
+
+  onResetClicked(): void {
+    this.holidays = [...this.savedHolidays];
+    this.styleService.dropAllHolidayHighlightedClasses();
+    this.styleService.setHolidaysStyles(this.holidays, true);
   }
 
   onAddHolidayClicked(): void {
@@ -78,7 +85,10 @@ export class CountryHolidaysComponent implements OnInit {
 
   private initCountryHolidays(): void {
     this.holidayService.getCountryHolidays(this.year)
-      .then(holidays => this.holidays = holidays);
+      .then(holidays => {
+        this.savedHolidays = [...holidays];
+        this.holidays = [...holidays];
+      });
   }
 
   private isDateAlreadyExist(startDate: Date, endDate: Date): boolean {

@@ -39,10 +39,19 @@
 
 .save-btn {
   background-color: #27ae60;
+  margin-right: 50px;
 }
 
 .save-btn:active {
   background-color: rgb(39,174,96, 0.9);
+}
+
+.reset-btn {
+  background-color: rgba(52, 73, 94, 1);
+}
+
+.reset-btn:active {
+  background-color: rgba(52, 73, 94, 0.9);
 }
 
 .holidays {
