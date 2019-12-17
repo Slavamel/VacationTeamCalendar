@@ -17,6 +17,7 @@ export class CountryHolidaysComponent implements OnInit {
   endDate: string;
 
   error: string;
+  isSaving: boolean;
 
   constructor(private holidayService: HolidayServiceMock, private styleService: StyleService) { }
 
@@ -31,6 +32,10 @@ export class CountryHolidaysComponent implements OnInit {
   }
 
   onSaveClicked(): void {
+    this.isSaving = true;
+    this.holidayService.saveCountryHolidays(this.holidays)
+      .then()
+      .finally(() => this.isSaving = false);
   }
 
   onResetClicked(): void {

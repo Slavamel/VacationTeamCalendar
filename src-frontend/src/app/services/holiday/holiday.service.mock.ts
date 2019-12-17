@@ -17,4 +17,11 @@ export class HolidayServiceMock extends HolidayServiceBase {
         map(this.convertToDates)
       ).toPromise();
   }
+
+  saveCountryHolidays(holidays: Holiday[]): Promise<Holiday[]> {
+    return this.http.get<Holiday[]>("assets/mocks/holidays.json").pipe(
+      delay(1000),
+      map(this.convertToDates)
+    ).toPromise();
+  }
 }

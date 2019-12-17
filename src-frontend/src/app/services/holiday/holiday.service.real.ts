@@ -12,6 +12,10 @@ export class HolidayServiceReal extends HolidayServiceBase {
   constructor(private http: HttpClient) { super(); }
 
   getCountryHolidays(year: number): Promise<Holiday[]> {
-    return this.http.get<Holiday[]>(environment.url + "/api/holiday/get-country-holidays/2019", {withCredentials: true}).toPromise();
+    return this.http.get<Holiday[]>(environment.url + `/api/holiday/get-country-holidays/${year}`, {withCredentials: true}).toPromise();
+  }
+
+  saveCountryHolidays(holidays: Holiday[]): Promise<Holiday[]> {
+    throw new Error("Not implemented");
   }
 }
