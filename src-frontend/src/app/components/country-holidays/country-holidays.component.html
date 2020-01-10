@@ -65,6 +65,6 @@
   <div class="buttons" >
     <button *ngIf="!isSaving" (click)="onSaveClicked()" type="button" class="btn save-btn">Save 💾</button>
     <button *ngIf="!isSaving" (click)="onResetClicked()" type="button" class="btn reset-btn">Reset ♻️</button>
-    <app-loading *ngIf="isSaving" [text]="'Saving...'"></app-loading>
+    <app-loading *ngIf="isSaving"></app-loading>
   </div>
 </div>
